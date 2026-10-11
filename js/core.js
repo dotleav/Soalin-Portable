@@ -1,4 +1,3 @@
-// Konstanta, util, tema, lang, progres LocalStorage.
 // ── Constants ──────────────────────────────────────────────────────────────
 let allQuestions = [];
 const LOAD_BATCH = 15; // questions rendered per batch so long quizzes don't lag
@@ -27,7 +26,6 @@ function shuffleArray(arr) {
 function escapeHtml(str) {
   return String(str ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
-function escapeAttr(str) { return escapeHtml(str); }
 const fmtBytes = (n) => n < 1048576 ? Math.max(1, Math.round(n / 1024)) + " KB" : n < 1073741824 ? (n / 1048576).toFixed(1) + " MB" : (n / 1073741824).toFixed(2) + " GB";
 const fmtDate = (ms) => new Date(ms).toLocaleDateString(lang === "id" ? "id-ID" : "en-US", { day: "numeric", month: "short", year: "numeric" });
 

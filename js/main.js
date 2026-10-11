@@ -1,4 +1,3 @@
-// render() utama, event listener, boot. Harus dimuat setelah convert.js.
 // ── Main render ───────────────────────────────────────────────────────────
 function render() {
   document.body.classList.toggle("light", theme === "light");

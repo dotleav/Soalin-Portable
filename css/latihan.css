@@ -1,4 +1,3 @@
-/* Mode Latihan: kartu soal, soal rusak, soal isian, load more. */
   /* ── Question card (continuous scroll list) ── */
   .qList { display: flex; flex-direction: column; gap: 20px; }
   .qCard {
@@ -98,10 +97,6 @@
   }
   .brokenCard .brokenQ {
     color: var(--text); font-size: 0.9rem; line-height: 1.65; margin: 0;
-  }
-  .brokenCard .brokenNum {
-    font-family: "JetBrains Mono", monospace; color: var(--accent);
-    font-weight: 700; margin-right: 6px;
   }
   .brokenReveal {
     margin-top: 14px;

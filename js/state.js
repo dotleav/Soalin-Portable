@@ -1,4 +1,3 @@
-// State global, library paket di IndexedDB, import .docx.
 // ── State ──────────────────────────────────────────────────────────────────
 let activePackage = null; // { id, title } of the quiz being played
 let pickerOpen = false;

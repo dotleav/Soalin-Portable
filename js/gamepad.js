@@ -1,4 +1,3 @@
-// Kontrol gamepad (Gamepad API).
 // Gamepad (Gamepad API bawaan browser, tanpa library). Colok controller, tekan satu tombol, jalan.
 //   Stik kiri/kanan = scroll | LT/RT = scroll satu layar | D-pad atas/bawah = pindah fokus
 //   A = klik | B = tutup pemilih paket | LB/RB = ganti Latihan/Tentamen | Start = lanjut/mulai

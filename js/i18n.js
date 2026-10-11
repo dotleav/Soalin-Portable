@@ -1,4 +1,3 @@
-// Teks UI EN/ID (S[key], t()).
 // ── i18n: S[key] = [English, Bahasa Indonesia]. English is the default. ─────
 const LANG_KEY = "soalin_lang";
 let lang = localStorage.getItem(LANG_KEY) === "id" ? "id" : "en";

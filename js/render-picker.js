@@ -1,4 +1,3 @@
-// Pemilih paket, pengaturan, kartu Custom Quiz.
 // ── Render: quiz picker + settings ────────────────────────────────────────
 function renderSettingsCard() {
   const opt = (attr, val, cur, label) => `<button class="themeModeOption${val === cur ? " active" : ""}" ${attr}="${val}">${label}</button>`;
@@ -46,11 +45,11 @@ function renderLibraryCard() {
       <input type="file" id="docxInput" accept=".docx" multiple hidden>
       ${packages.map((p) => `
         <div class="pkgRow">
-          <button class="packageItem${activePackage?.id === p.id ? " active" : ""}" data-pkg="${escapeAttr(p.id)}">
+          <button class="packageItem${activePackage?.id === p.id ? " active" : ""}" data-pkg="${escapeHtml(p.id)}">
             <span class="pkgTitle">${escapeHtml(p.title)}</span>
             <span class="pkgMeta">${t("quizMeta", { n: p.count, s: fmtBytes(p.size), d: fmtDate(p.savedAt) })}</span>
           </button>
-          <button class="pkgDel" data-del="${escapeAttr(p.id)}" title="${t("delQuiz")}" aria-label="${t("delQuiz")}">\uD83D\uDDD1\uFE0F</button>
+          <button class="pkgDel" data-del="${escapeHtml(p.id)}" title="${t("delQuiz")}" aria-label="${t("delQuiz")}">\uD83D\uDDD1\uFE0F</button>
         </div>`).join("")}
       <label class="dropZone" for="docxInput">
         <span class="dropIcon">\uD83D\uDCC4</span>

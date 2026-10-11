@@ -1,4 +1,3 @@
-// Handler klik jawaban, timer, mulai/reset Tentamen.
 // ── Init Quiz mode progress from localStorage ────────────────────────────
 function initBiasa() {
   const saved = loadBiasa();

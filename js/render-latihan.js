@@ -1,4 +1,3 @@
-// Header + mode bar, render Mode Latihan.
 // ── Render: header + mode bar ─────────────────────────────────────────────
 function renderHeaderZone() {
   const quizzableAll = allQuestions.filter(q => !q.isBroken && !q.isIsian);

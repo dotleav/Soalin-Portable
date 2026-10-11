@@ -1,4 +1,3 @@
-// Kartu soal pilihan ganda, soal rusak, soal isian.
 // ── Render: broken-question flashcards (one per screen, tap → explanation) ──
 const brokenRevealed = new Set();
 let brokenIdx = 0;
@@ -20,7 +19,7 @@ function renderBrokenDeck(list) {
 
   return `
     <div class="brokenDeck">
-      <div class="brokenCard" data-broken-id="${escapeAttr(q.id)}">
+      <div class="brokenCard" data-broken-id="${escapeHtml(q.id)}">
         <div class="brokenMeta">
           <span class="brokenBadge">${t("brokenBadge")}</span>
           <span class="tapHint">${open ? t("tapClose") : t("tapOpen")}</span>
@@ -63,8 +62,8 @@ function renderIsianCard(q, qNum, answeredValue) {
   } else {
     bodyHtml = `
       <div class="isianInputRow">
-        <textarea class="isianInput" data-qid="${escapeAttr(q.id)}" rows="2" placeholder="${t("typeHere")}"></textarea>
-        <button class="isianSubmitBtn" data-qid="${escapeAttr(q.id)}" title="${t("submit")}" aria-label="${t("submit")}">▶</button>
+        <textarea class="isianInput" data-qid="${escapeHtml(q.id)}" rows="2" placeholder="${t("typeHere")}"></textarea>
+        <button class="isianSubmitBtn" data-qid="${escapeHtml(q.id)}" title="${t("submit")}" aria-label="${t("submit")}">▶</button>
       </div>`;
   }
 
@@ -102,7 +101,7 @@ function renderQuestionCard(q, qNum, chosen, revealAnswer) {
       cls += " faded"; letterCls += " faded";
     }
     return `
-      <button class="${cls}${locked}" data-qid="${escapeAttr(q.id)}" data-letter="${escapeAttr(letter)}">
+      <button class="${cls}${locked}" data-qid="${escapeHtml(q.id)}" data-letter="${escapeHtml(letter)}">
         <span class="${letterCls}" data-letter="${letter}">${letter}</span>
         <span class="optText">${escapeHtml(text)}</span>
         ${icon}

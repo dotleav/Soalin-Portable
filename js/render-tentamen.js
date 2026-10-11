@@ -1,4 +1,3 @@
-// Mode Tentamen: setup, running, hasil.
 // ── Render: Timed Quiz — setup ────────────────────────────────────────────
 const timerText = (d) => d === "bekicot" ? t("d_bekicot_timer") : t("timerPer", { n: DIFFICULTY_CONFIG[d].timerSeconds });
 function renderTentamenSetup() {

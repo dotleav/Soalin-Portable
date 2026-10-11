@@ -1,4 +1,3 @@
-// Konverter .docx -> soal, jalan di browser.
 // ── Konverter .docx → soal, jalan 100% di browser (tanpa library) ───────────
 // Alur: zip (DecompressionStream bawaan browser) → word/document.xml (DOMParser
 // bawaan) → baris teks/gambar → parser soal yang SAMA dengan scripts/convert-docx.js.

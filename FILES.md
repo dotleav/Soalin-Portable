@@ -14,10 +14,9 @@
 | render() utama, event listener, boot | `js/main.js` |
 | Gamepad | `js/gamepad.js` |
 | Token warna, tema terang | `css/base.css` |
-| Header, filter, tracker | `css/layout.css` |
+| Header, filter, tracker, ring fokus gamepad | `css/layout.css` |
 | Kartu & soal Mode Latihan | `css/latihan.css` |
 | Mode Tentamen | `css/tentamen.css` |
 | Pemilih paket, Custom Quiz, pengaturan | `css/picker.css` |
-| Ring fokus gamepad | `css/gamepad.css` |
 
 Urutan `<script>` di `index.html` wajib dipertahankan: skrip klasik (bukan module) yang saling berbagi variabel global. `convert.js` harus sebelum `main.js` karena `main.js` memanggil `boot()`.
