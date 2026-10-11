@@ -1,0 +1,130 @@
+/* Mode Tentamen: pemilih kesulitan, running, hasil. */
+  /* ── Tentamen: difficulty selector ── */
+  .sectionLabel { font-size: 0.72rem; color: var(--muted2); margin-bottom: 10px; font-weight: 700; letter-spacing: 0.03em; }
+  .diffGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .diffCard {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+    padding: 18px 16px; border-radius: var(--radius-lg); border: 1.5px solid var(--border);
+    background: var(--card); cursor: pointer; transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    text-align: left; min-height: 116px; box-shadow: var(--shadow-card);
+  }
+  .diffCard:hover { transform: translateY(-2px); }
+  .diffCard.active { border-width: 2px; box-shadow: 0 4px 0 rgba(10,6,26,0.55), 0 0 0 3px rgba(255,255,255,0.04); }
+  .diffTop { display: flex; align-items: center; gap: 8px; }
+  .diffEmoji { font-size: 1.7rem; line-height: 1; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); }
+  .diffLabel { font-weight: 700; font-size: 1.02rem; font-family: "Fredoka", sans-serif; }
+  .diffDesc { font-size: 0.82rem; color: var(--muted); line-height: 1.4; }
+  .diffTimer { font-family: "JetBrains Mono", monospace; font-size: 0.75rem; font-weight: 700; }
+
+  .statsRow3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .statBox2 { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; text-align: center; box-shadow: var(--shadow-card); }
+  .statBox2 .val { font-family: "JetBrains Mono", monospace; color: var(--accent); font-size: 1.4rem; font-weight: 700; }
+  .statBox2 .lbl { color: var(--muted2); font-size: 0.72rem; margin-top: 4px; }
+
+  .startTentamenBtn {
+    width: 100%; padding: 16px; color: #251500; font-weight: 700; font-size: 1.02rem;
+    font-family: "Fredoka", sans-serif;
+    border-radius: var(--radius-md); border: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 8px; transition: transform 0.12s, opacity 0.15s;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.28);
+  }
+  .startTentamenBtn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+  .startTentamenBtn:hover:not(:disabled) { transform: translateY(-1px); }
+  .startTentamenBtn:active:not(:disabled) { transform: translateY(1px); box-shadow: 0 2px 0 rgba(0,0,0,0.28); }
+
+  /* ── Tentamen: running ── */
+  .tentamenTop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .tentamenTop .qOf { font-size: 0.78rem; color: var(--muted); }
+  .dotsRow { display: flex; gap: 4px; align-items: center; }
+  .dotItem { width: 8px; height: 8px; border-radius: 50%; background: var(--border-light); transition: all 0.2s; }
+  .dotItem.done { background: var(--correct); }
+  .dotItem.current { width: 18px; height: 8px; border-radius: 4px; background: var(--accent); }
+  .dotsOverflow { color: var(--muted3); font-size: 0.65rem; margin-left: 2px; }
+
+  .timerCard { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 16px; transition: border-color 0.3s; box-shadow: var(--shadow-card); }
+  .timerCard.urgent { border-color: var(--wrong-strong); }
+  .timerCard.timeoutFlash { animation: timeoutFlash 0.6s ease-in-out 3; }
+  .timerTop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .timerLabel { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+  .timerLabel.urgent { color: var(--wrong-strong); }
+  .timerNum { font-family: "JetBrains Mono", monospace; font-size: 2.3rem; font-weight: 700; line-height: 1; }
+  .timerNum.pulse { animation: timerPulse 0.75s ease-in-out infinite; }
+  .timerTrack { background: var(--border-light); border-radius: 999px; height: 7px; overflow: hidden; }
+  .timerFill { height: 100%; border-radius: 999px; transition: width 1s linear, background-color 0.3s; }
+
+  @keyframes timerPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+  @keyframes timeoutFlash { 0%, 100% { background-color: transparent; } 50% { background-color: rgba(229, 66, 58, 0.1); } }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .timeoutNotice {
+    background: rgba(229,66,58,0.12); border: 1px solid rgba(229,66,58,0.3);
+    border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 14px;
+    display: flex; align-items: center; gap: 8px;
+    animation: slideDown 0.22s ease-out both;
+  }
+  .timeoutNotice span { color: var(--tint-wrong-text); font-size: 0.82rem; font-weight: 600; }
+
+  .nextBtn {
+    width: 100%; padding: 14px; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #251500;
+    font-weight: 700; font-size: 0.96rem; font-family: "Fredoka", sans-serif;
+    border-radius: var(--radius-md); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    transition: transform 0.12s; margin-top: 14px;
+    animation: slideDown 0.22s ease-out both;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.28);
+  }
+  .nextBtn:hover { transform: translateY(-1px); }
+  .nextBtn:active { transform: translateY(1px); box-shadow: 0 2px 0 rgba(0,0,0,0.28); }
+
+  /* ── Summary / hasil ── */
+  .scoreHero {
+    background:
+      radial-gradient(220px 140px at 50% 0%, var(--accent-soft), transparent 70%),
+      var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 30px 24px; margin-bottom: 14px; text-align: center;
+    position: relative; overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  .scoreHero .trophy { font-size: 2.4rem; margin-bottom: 8px; animation: trophyBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .scoreHero .pct {
+    font-family: "Fredoka", "Plus Jakarta Sans", sans-serif;
+    font-size: clamp(3rem, 15vw, 4.6rem); font-weight: 700; line-height: 1;
+    animation: popIn 0.45s 0.1s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  .scoreHero .gradeLabel { font-size: 0.92rem; font-weight: 700; margin-top: 6px; font-family: "Fredoka", sans-serif; }
+  .scoreHero .subline { color: var(--muted2); font-size: 0.78rem; margin-top: 4px; }
+  @keyframes trophyBounce {
+    0% { transform: translateY(-14px) scale(0.6); opacity: 0; }
+    60% { transform: translateY(2px) scale(1.08); opacity: 1; }
+    100% { transform: translateY(0) scale(1); }
+  }
+
+  .statsGrid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 14px; }
+  .statsGrid.statsGrid3 { grid-template-columns: repeat(3,1fr); }
+  .statBox { border-radius: var(--radius-md); padding: 14px; text-align: center; border: 1.5px solid; }
+  .statBox .val { font-family: "JetBrains Mono", monospace; font-size: 1.65rem; font-weight: 700; }
+  .statBox .lbl { font-size: 0.7rem; margin-top: 4px; opacity: 0.85; font-weight: 600; }
+
+  .distBar { display: flex; height: 12px; border-radius: 999px; overflow: hidden; gap: 2px; }
+  .distLegend { display: flex; justify-content: space-between; margin-top: 6px; font-size: 0.68rem; color: var(--muted2); font-weight: 600; }
+
+  .restartBtn {
+    width: 100%; padding: 15px;
+    background: linear-gradient(135deg, var(--accent2), #ff3d7a); color: #2a0416;
+    font-weight: 700; font-size: 1.02rem; font-family: "Fredoka", sans-serif;
+    border-radius: var(--radius-md); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-bottom: 20px;
+    transition: transform 0.12s;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.28);
+  }
+  .restartBtn:hover { transform: translateY(-1px); }
+  .restartBtn:active { transform: translateY(1px); box-shadow: 0 2px 0 rgba(0,0,0,0.28); }
+
+  .reviewLabel { font-size: 0.78rem; color: var(--muted2); margin-bottom: 12px; font-weight: 600; }
+  .reviewList { display: flex; flex-direction: column; gap: 16px; }
+
+  .empty { color: var(--muted2); text-align: center; margin-top: 60px; font-size: 0.9rem; }
+
+  .quiz-fade-in { animation: fadeIn 0.28s ease-out both; }

@@ -1,0 +1,185 @@
+/* Mode Latihan: kartu soal, soal rusak, soal isian, load more. */
+  /* ── Question card (continuous scroll list) ── */
+  .qList { display: flex; flex-direction: column; gap: 20px; }
+  .qCard {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+  .qMeta { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .imgBadge { display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: var(--blue); font-weight: 600; }
+  .qText { color: var(--text); font-size: 0.9rem; line-height: 1.65; margin: 0 0 16px; }
+  .qNum { font-family: "JetBrains Mono", monospace; color: var(--accent); font-weight: 700; margin-right: 6px; }
+  .qImg, .exImg {
+    width: 100%; height: auto; max-height: none;
+    background: #fff; display: block; border-radius: var(--radius-sm);
+    border: 1px solid var(--border); margin-bottom: 14px;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 9px; }
+  .option {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--border-light);
+    border: 1.5px solid var(--border);
+    border-left-width: 4px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: transform 0.12s, border-color 0.15s, background 0.15s;
+    text-align: left;
+    width: 100%;
+  }
+  .option:hover:not(.locked) { border-color: var(--accent); background: var(--accent-soft); transform: translateX(2px); }
+  .option:active:not(.locked) { transform: scale(0.985); }
+  .option.locked { cursor: default; }
+  .option.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .option.correct {
+    background: rgba(23,180,118,0.16); border-color: var(--correct-strong); color: var(--tint-correct-text);
+    animation: correctPop 0.35s ease both;
+  }
+  .option.wrong {
+    background: rgba(229,66,58,0.16); border-color: var(--wrong-strong); color: var(--tint-wrong-text);
+    animation: wrongShake 0.4s ease both;
+  }
+  .option.faded { background: var(--card); border-color: var(--border-light); color: var(--muted3); opacity: 0.7; }
+  @keyframes correctPop { 0% { transform: scale(0.97); } 55% { transform: scale(1.015); } 100% { transform: scale(1); } }
+  @keyframes wrongShake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-4px); } 40% { transform: translateX(4px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
+  .letter {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700; font-size: 11px;
+    width: 26px; height: 26px; border-radius: 50%;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--border); color: var(--muted);
+    margin-top: 1px; transition: all 0.15s;
+  }
+  .letter.correct { background: linear-gradient(135deg, var(--correct), var(--correct-strong)); border: none; color: #04281a; }
+  .letter.wrong { background: linear-gradient(135deg, var(--wrong), var(--wrong-strong)); border: none; color: #2c0503; }
+  .letter.faded { border-color: var(--border-light); color: var(--muted3); }
+  .optText { font-size: 0.84rem; line-height: 1.55; flex: 1; }
+  .icon { flex-shrink: 0; margin-top: 2px; font-size: 0.9rem; }
+  .icon.ok { color: var(--correct); }
+  .icon.no { color: var(--wrong); }
+
+  .skipNote {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--muted); font-size: 0.78rem;
+    margin-top: 10px;
+  }
+
+  /* ── Soal Rusak — tap-to-reveal card ── */
+  .brokenCard {
+    background: var(--card);
+    border: 1.5px dashed var(--muted3);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .brokenCard:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .brokenCard .brokenMeta {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .brokenBadge {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+    background: rgba(229,66,58,0.18); color: var(--tint-wrong-text);
+    border: 1px solid rgba(229,66,58,0.4);
+  }
+  .tapHint {
+    font-size: 0.68rem; color: var(--muted3);
+  }
+  .brokenCard .brokenQ {
+    color: var(--text); font-size: 0.9rem; line-height: 1.65; margin: 0;
+  }
+  .brokenCard .brokenNum {
+    font-family: "JetBrains Mono", monospace; color: var(--accent);
+    font-weight: 700; margin-right: 6px;
+  }
+  .brokenReveal {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+  .brokenReveal .tag {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--blue); font-weight: 700; font-size: 0.78rem; margin-bottom: 8px;
+  }
+  .brokenReveal .noImg {
+    color: var(--muted2); font-size: 0.78rem; font-style: italic;
+  }
+  .brokenExp { color: var(--text-secondary); font-size: 0.86rem; line-height: 1.65; margin: 0 0 8px; white-space: pre-line; }
+  .brokenCount { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; color: var(--muted2); margin-left: auto; }
+  .brokenCard { min-height: 160px; }
+  .brokenCard .brokenQ { font-size: 1rem; }
+  .brokenNav { display: flex; gap: 10px; margin-top: 12px; }
+  .brokenNav button {
+    flex: 1; padding: 11px; border-radius: var(--radius-lg); cursor: pointer;
+    background: var(--card); color: var(--text); border: 1.5px solid var(--border);
+    font: inherit; font-size: 0.85rem; font-weight: 600;
+  }
+  .brokenNav button:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+  .brokenNav button:disabled { opacity: 0.35; cursor: default; }
+
+  /* ── Soal Isian — jawaban singkat, tap-to-submit ── */
+  .isianBadge {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .isianInputRow { display: flex; align-items: flex-end; gap: 8px; }
+  .isianInput {
+    flex: 1; resize: vertical; min-height: 64px;
+    font: inherit; font-size: 0.86rem; line-height: 1.5; color: var(--text);
+    background: var(--border-light); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 12px;
+  }
+  .isianInput:focus { outline: none; border-color: var(--accent); background: var(--accent-soft); }
+  .isianSubmitBtn {
+    flex-shrink: 0; width: 40px; height: 40px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--accent); background: var(--accent); color: var(--bg);
+    font-size: 0.9rem; cursor: pointer; transition: transform 0.12s, opacity 0.15s;
+  }
+  .isianSubmitBtn:hover { transform: scale(1.05); }
+  .isianSubmitBtn:active { transform: scale(0.95); }
+  .isianReveal .isianYourAnswer { margin-bottom: 12px; }
+  .isianReveal .isianYourAnswer .tag {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--text-secondary); font-weight: 700; font-size: 0.78rem; margin-bottom: 8px;
+  }
+  .isianCorrectLabel { color: var(--correct-strong); }
+  .isianReveal .isianYourAnswer p, .isianReveal .explanation p {
+    color: var(--text); font-size: 0.86rem; line-height: 1.6; margin: 0; white-space: pre-wrap;
+  }
+
+  .explanation {
+    background: rgba(108,201,255,0.1);
+    border: 1px solid rgba(108,201,255,0.33);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    margin-top: 14px;
+  }
+  .explanation .tag {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--blue); font-weight: 700; font-size: 0.78rem; margin-bottom: 6px;
+  }
+  .explanation p { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.65; margin: 0; }
+
+  /* ── Load more (Mode Latihan pagination) ── */
+  .loadMoreBtn {
+    width: 100%; margin-top: 20px; padding: 14px;
+    background: var(--card); border: 1.5px solid var(--border); color: var(--accent);
+    font-weight: 700; font-size: 0.86rem; border-radius: var(--radius-md); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.15s;
+  }
+  .loadMoreBtn:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .loadMoreBtn:active { transform: scale(0.98); }

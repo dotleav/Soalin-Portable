@@ -1,0 +1,96 @@
+/* Token warna/font dasar + mode terang. */
+  :root {
+    /* ── Base palette: deep indigo-night instead of flat near-black ── */
+    --bg: #150f2b;
+    --bg-alt: #0d0920;
+    --card: #201a42;
+    --card-soft: #251e4d;
+    --border: #3a2f6e;
+    --border-light: #2a2255;
+    --text: #f8f4ff;
+    --text-secondary: #d2c6f0;
+    --muted: #9c8cc9;
+    --muted2: #7566a3;
+    --muted3: #4f4278;
+
+    /* ── Accents: warm marigold + bubblegum pink duo, not a single flat hue ── */
+    --accent: #ffb238;
+    --accent-strong: #ff9500;
+    --accent-soft: #ffb23820;
+    --accent2: #ff5d8f;
+    --accent2-soft: #ff5d8f22;
+
+    --correct: #3ddc97;
+    --correct-strong: #17b476;
+    --wrong: #ff6f6f;
+    --wrong-strong: #e5423a;
+    --blue: #6cc9ff;
+    --blue-strong: #2f8fe0;
+
+    /* Teks di atas latar tint transparan (badge, opsi benar/salah, notifikasi) */
+    --tint-correct-text: #a4f4d4;
+    --tint-wrong-text: #ffc3c0;
+
+    --shadow-card: 0 4px 0 rgba(10, 6, 26, 0.55);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ── Mode Terang — semua komponen dipakai lewat var(...), jadi cukup timpa token-nya di sini ── */
+  body.light {
+    --bg: #fbf7ff;
+    --bg-alt: #f4eefc;
+    --card: #ffffff;
+    --card-soft: #f7f1ff;
+    --border: #e3d7f7;
+    --border-light: #eee5fa;
+    --text: #241a3f;
+    --text-secondary: #4b3f72;
+    --muted: #7c6da3;
+    --muted2: #9689b8;
+    --muted3: #beb0d9;
+
+    --accent: #d98600;
+    --accent-strong: #b96f00;
+    --accent-soft: #d9860020;
+    --accent2: #d43d76;
+    --accent2-soft: #d43d7618;
+
+    --correct: #17a06a;
+    --correct-strong: #0d8a58;
+    --wrong: #d6453c;
+    --wrong-strong: #b93227;
+    --blue: #2f7fd6;
+    --blue-strong: #1f66b3;
+
+    --tint-correct-text: #0d6b47;
+    --tint-wrong-text: #a3271f;
+
+    --shadow-card: 0 3px 0 rgba(70, 50, 110, 0.1);
+
+    background:
+      radial-gradient(600px 320px at 12% -8%, #d9860018, transparent 60%),
+      radial-gradient(560px 340px at 110% 12%, #d43d7614, transparent 55%),
+      var(--bg);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+    background:
+      radial-gradient(600px 320px at 12% -8%, #3a2a7a55, transparent 60%),
+      radial-gradient(560px 340px at 110% 12%, #ff5d8f22, transparent 55%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--text-secondary);
+    -webkit-font-smoothing: antialiased;
+  }
+  body.light { background-attachment: fixed; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+  .wrap { width: 100%; max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
